@@ -9,11 +9,7 @@
 #	a0 (int) the absolute value of the input
 # =================================================================
 abs:
-    # Prologue
-
-    # return 0
-    mv a0, zero
-
-    # Epilogue
-
+    srai t0, a0, 31
+    xor t1, a0, t0
+    sub a0, t1, t0
     ret

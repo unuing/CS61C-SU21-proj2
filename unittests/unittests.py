@@ -22,6 +22,18 @@ class TestAbs(TestCase):
         t.check_scalar("a0", 1)
         t.execute()
 
+    def test_minus_one(self):
+        # Indicates we are creating the test for the `abs.s` file
+        t = AssemblyTest(self, "abs.s")
+        # Setting the argument register a0 to have value of -1
+        t.input_scalar("a0", -1)
+        # Calling the abs function
+        t.call("abs")
+        # The a0 register is now the return value
+        # Checking if a0 is now 1
+        t.check_scalar("a0", 1)
+        t.execute()
+
     @classmethod
     def tearDownClass(cls):
         print_coverage("abs.s", verbose=False)
