@@ -101,16 +101,58 @@ class TestDot(TestCase):
     def test_simple(self):
         t = AssemblyTest(self, "dot.s")
         # create arrays in the data section
-        raise NotImplementedError("TODO")
-        # TODO
+        a = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        b = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
         # load array addresses into argument registers
-        # TODO
+        t.input_array("a0", a)
+        t.input_array("a1", b)
         # load array attributes into argument registers
-        # TODO
+        t.input_scalar("a2", 9)
+        t.input_scalar("a3", 4)
+        t.input_scalar("a4", 4)
         # call the `dot` function
         t.call("dot")
         # check the return value
-        # TODO
+        t.check_scalar("a0", 285)
+
+        t.execute()
+
+    def test_exception(self):
+        t = AssemblyTest(self, "dot.s")
+        a = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        b = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        t.input_array("a0", a)
+        t.input_array("a1", b)
+        t.input_scalar("a2", 0)
+        t.input_scalar("a3", 4)
+        t.input_scalar("a4", 4)
+        t.call("dot")
+        t.execute(code=32)
+
+    def test_stride(self):
+        t = AssemblyTest(self, "dot.s")
+        a = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        b = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        t.input_array("a0", a)
+        t.input_array("a1", b)
+        t.input_scalar("a2", 5)
+        t.input_scalar("a3", 8)
+        t.input_scalar("a4", 8)
+        t.call("dot")
+        t.check_scalar("a0", sum([i*i for i in range(1, 10, 2)]))
+        t.execute()
+
+    def test_stride2(self):
+        t = AssemblyTest(self, "dot.s")
+        a = t.array([1, 2, 3, 4, 5])
+        b = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        t.input_array("a0", a)
+        t.input_array("a1", b)
+        t.input_scalar("a2", 5)
+        t.input_scalar("a3", 4)
+        t.input_scalar("a4", 8)
+        t.call("dot")
+        t.check_scalar("a0", sum([(i*(i*2-1)) for i in range(1, 6)]))
         t.execute()
 
     @classmethod

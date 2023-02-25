@@ -18,27 +18,22 @@
 #   this function terminates the program with error code 33
 # =======================================================
 dot:
-
-    # Prologue
-
-
-loop_start:
-
-
-
-
-
-
-
-
-
-
-
-
-loop_end:
-
-
-    # Epilogue
-
-    
-    ret
+	bge zero, a2, error
+	li t0, 0		# int sum = 0;
+	li t1, 0		# int i = 0;
+loop:
+	bge zero, a2, exit	# if (length <= 0) { break; }
+	lw t2, 0(a0)		# int ai = *a;
+	lw t3, 0(a1)		# int bi = *b;
+	mul t2, t2, t3
+	add t0, t0, t2		# sum += ai * bi;
+	add a0, a0, a3		# a++;
+	add a1, a1, a4		# b++;
+	addi a2, a2, -1		# length--;
+	j loop
+error:
+	li a1, 32
+	j exit2
+exit:
+	mv a0, t0
+	ret
