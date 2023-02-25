@@ -15,20 +15,24 @@
 #   this function terminates the program with error code 32
 # =================================================================
 argmax:
-
-    # Prologue
-
-
-loop_start:
-
-
-loop_continue:
-
-
-loop_end:
-    
-
-    # Epilogue
-
-
-    ret
+	bge zero, a1, error
+	lw t0, 0(a0)		# int max = arr[0];
+	li t1, 0		# int pmax = 0;
+	li t2, 1		# int i = 1;
+loop:
+	bge t2, a1, exit
+	slli t3, t2, 2
+	add t3, a0, t3		# int *p = arr + i;
+	lw t3, 0(t3)
+	bge t0, t3, continue	# if (*p <= max) { continue; }
+	mv t0, t3
+	mv t1, t2		# else { max = *p; pmax = i; }
+continue:
+	addi t2, t2, 1		# i++;
+	j loop
+error:
+	li a1, 32
+	j exit2
+exit:
+	mv a0, t1
+	ret
