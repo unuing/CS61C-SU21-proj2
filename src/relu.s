@@ -13,26 +13,18 @@
 #   this function terminates the program with error code 32
 # ==============================================================================
 relu:
-    # Prologue
-
-
-loop_start:
-    
-
-
-
-
-
-
-
-loop_continue:
-
-
-
-loop_end:
-
-
-    # Epilogue
-
-    
+	bge zero, a1, error
+loop:
+	beq a1, zero, exit_without_error
+	lw t0, 0(a0)
+	bge t0, zero, remain
+	sw zero, 0(a0)
+remain:
+	addi a0, a0, 4
+	addi a1, a1, -1
+	j loop
+error:
+	li a1, 32
+	j exit2
+exit_without_error:
 	ret

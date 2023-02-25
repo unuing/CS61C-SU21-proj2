@@ -55,6 +55,14 @@ class TestRelu(TestCase):
         # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
         t.execute()
 
+    def test_exception(self):
+        t = AssemblyTest(self, "relu.s")
+        array0 = t.array([1, -2, 3, -4, 5, -6, 7, -8, 9])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", 0)
+        t.call("relu")
+        t.execute(code=32)
+
     @classmethod
     def tearDownClass(cls):
         print_coverage("relu.s", verbose=False)
