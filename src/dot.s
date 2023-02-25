@@ -22,7 +22,7 @@ dot:
 	li t0, 0		# int sum = 0;
 	li t1, 0		# int i = 0;
 loop:
-	bge zero, a2, exit	# if (length <= 0) { break; }
+	bge zero, a2, return	# if (length <= 0) { break; }
 	lw t2, 0(a0)		# int ai = *a;
 	lw t3, 0(a1)		# int bi = *b;
 	mul t2, t2, t3
@@ -34,6 +34,6 @@ loop:
 error:
 	li a1, 32
 	j exit2
-exit:
+return:
 	mv a0, t0
 	ret

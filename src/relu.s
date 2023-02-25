@@ -15,7 +15,7 @@
 relu:
 	bge zero, a1, error
 loop:
-	beq a1, zero, exit_without_error
+	beq a1, zero, return
 	lw t0, 0(a0)
 	bge t0, zero, remain
 	sw zero, 0(a0)
@@ -26,5 +26,5 @@ remain:
 error:
 	li a1, 32
 	j exit2
-exit_without_error:
+return:
 	ret

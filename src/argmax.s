@@ -20,7 +20,7 @@ argmax:
 	li t1, 0		# int pmax = 0;
 	li t2, 1		# int i = 1;
 loop:
-	bge t2, a1, exit
+	bge t2, a1, return
 	slli t3, t2, 2
 	add t3, a0, t3		# int *p = arr + i;
 	lw t3, 0(t3)
@@ -33,6 +33,6 @@ continue:
 error:
 	li a1, 32
 	j exit2
-exit:
+return:
 	mv a0, t1
 	ret
