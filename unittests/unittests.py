@@ -129,6 +129,18 @@ class TestDot(TestCase):
         t.call("dot")
         t.execute(code=32)
 
+    def test_exception2(self):
+        t = AssemblyTest(self, "dot.s")
+        a = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        b = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        t.input_array("a0", a)
+        t.input_array("a1", b)
+        t.input_scalar("a2", 9)
+        t.input_scalar("a3", 0)
+        t.input_scalar("a4", 4)
+        t.call("dot")
+        t.execute(code=33)
+
     def test_stride(self):
         t = AssemblyTest(self, "dot.s")
         a = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])

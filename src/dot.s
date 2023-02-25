@@ -18,7 +18,9 @@
 #   this function terminates the program with error code 33
 # =======================================================
 dot:
-	bge zero, a2, error
+	bge zero, a2, error32
+	bge zero, a3, error33
+	bge zero, a4, error33
 	li t0, 0		# int sum = 0;
 	li t1, 0		# int i = 0;
 loop:
@@ -31,8 +33,11 @@ loop:
 	add a1, a1, a4		# b++;
 	addi a2, a2, -1		# length--;
 	j loop
-error:
+error32:
 	li a1, 32
+	j exit2
+error33:
+	li a1, 33
 	j exit2
 return:
 	mv a0, t0
