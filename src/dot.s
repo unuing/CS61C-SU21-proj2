@@ -23,6 +23,8 @@ dot:
 	bge zero, a4, error33
 	li t0, 0		# int sum = 0;
 	li t1, 0		# int i = 0;
+	slli a3, a3, 2
+	slli a4, a4, 2		# calculate the stride in bytes
 loop:
 	bge zero, a2, return	# if (length <= 0) { break; }
 	lw t2, 0(a0)		# int ai = *a;
