@@ -210,6 +210,26 @@ class TestMatmul(TestCase):
             [30, 36, 42, 66, 81, 96, 102, 126, 150]
         )
 
+    def test_exception(self):
+        self.do_matmul(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9], 0, 9,
+            [1, 2, 3, 4, 5, 6, 7, 8, 9], 0, 9,
+            [0],
+            code=34
+        )
+        self.do_matmul(
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 2, 5,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 2, 5,
+            [0],
+            code=34
+        )
+
+    def test_not_square(self):
+        self.do_matmul(
+            [1, 2, 3, 4, 5, 6, 7, 8], 2, 4,
+            [1, 2, 3, 4, 5, 6, 7, 8], 4, 2,
+            [50, 60, 114, 140])
+
     @classmethod
     def tearDownClass(cls):
         print_coverage("matmul.s", verbose=False)
