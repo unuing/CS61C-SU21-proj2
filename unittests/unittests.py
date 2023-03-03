@@ -287,17 +287,29 @@ class TestWriteMatrix(TestCase):
         # load output file name into a0 register
         t.input_write_filename("a0", outfile)
         # load input array and other arguments
-        raise NotImplementedError("TODO")
-        # TODO
+        mat = t.array([i for i in range(1, 10)])
+        t.input_array("a1", mat)
+        t.input_scalar("a2", 3)
+        t.input_scalar("a3", 3)
         # call `write_matrix` function
         t.call("write_matrix")
         # generate assembly and run it through venus
         t.execute(fail=fail, code=code)
         # compare the output file against the reference
-        t.check_file_output(outfile, "outputs/test_write_matrix/reference.bin")
+        if not fail:
+            t.check_file_output(outfile, "outputs/test_write_matrix/reference.bin")
 
     def test_simple(self):
         self.do_write_matrix()
+
+    def test_exceptions(self):
+        exceptions = {
+            "fopen": 64,
+            "fwrite": 67,
+            "fclose": 65
+        }
+        for e in exceptions:
+            self.do_write_matrix(e, exceptions[e])
 
     @classmethod
     def tearDownClass(cls):
