@@ -5,7 +5,7 @@
 # FUNCTION: Matrix Multiplication of 2 integer matrices
 # 	d = matmul(m0, m1)
 # Arguments:
-# 	a0 (int*)  is the pointer to the start of m0 
+# 	a0 (int*)  is the pointer to the start of m0
 #	a1 (int)   is the # of rows (height) of m0
 #	a2 (int)   is the # of columns (width) of m0
 #	a3 (int*)  is the pointer to the start of m1
